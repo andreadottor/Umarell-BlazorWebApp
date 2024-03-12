@@ -1,0 +1,40 @@
+﻿@page "/create"
+@rendermode InteractiveServer
+
+@inject IJSRuntime JS
+@inject IBuildingSitesService ApiProxy
+@inject IMessageBoxService MessageBoxService
+
+@attribute [Authorize]
+
+<h3>Segnala un nuovo cantiere</h3>
+
+<EditForm EditContext="EditContext" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+    <div class="form-group mt-3">
+        <label for="txtTitle">Titolo</label>
+        <InputText @bind-Value="Title" class="form-control" id="txtTitle" />
+        <ValidationMessage For="() => Title" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="startDate">Data inizio</label>
+        <InputDate @bind-Value="@StartDate" class="form-control" id="startDate" />
+        <ValidationMessage For="() => StartDate" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="fileImage">Foto</label>
+        <InputFile OnChange="@LoadFiles" class="form-control" id="fileImage" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="map">Posizione</label>
+        <MapEditor @bind-Value="Position" id="map" />
+        <ValidationMessage For="() => Position" />
+    </div>
+    <hr />
+    <button type="submit" class="btn btn-primary">Salva</button>
+    <button type="button" class="btn btn-secondary" @onclick="Clear">Clear</button>
+</EditForm>
+

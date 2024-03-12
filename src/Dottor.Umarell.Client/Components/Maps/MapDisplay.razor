@@ -1,0 +1,85 @@
+﻿@implements IAsyncDisposable
+@implements IMarkerInfoContainer
+
+@using System.Linq.Expressions
+
+@inject IJSRuntime JS
+
+<div class="map-element" @ref="_mapElement" @attributes="Attributes"></div>
+
+<CascadingValue Value="this">
+    @MarkerInfo
+</CascadingValue>
+
+<div @ref="_markerNoInfoElement" style="display: none;">
+    <div class="text-center">
+        <img src="/images/umarell_logo.png" alt="umarell logo" width="50" />
+        <p>Ops, qualcosa è andato storto...</p>
+    </div>
+</div>
+
+@code {
+    [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object>? Attributes { get; set; }
+    [Parameter] public RenderFragment? MarkerInfo { get; set; }
+    [Parameter] public IEnumerable<BuildingSiteModel>? Items { get; set; }
+
+    private ElementReference _markerNoInfoElement;
+    private ElementReference _mapElement;
+    private IJSObjectReference? _mapModule;
+    private IJSObjectReference? _mapInstance;
+    private DotNetObjectReference<MapDisplay>? _objRef;
+
+    private IMarkerInfoComponent? _markerInfoComponent;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _objRef = DotNetObjectReference.Create(this);
+            _mapModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Maps/MapDisplay.razor.js");
+            _mapInstance = await _mapModule.InvokeAsync<IJSObjectReference>("initializeMap", _mapElement, Items, _objRef);
+        }
+    }
+
+    public void SetMarkerInfoRef(IMarkerInfoComponent markerInfoComponent)
+    {
+        _markerInfoComponent = markerInfoComponent;
+    }
+
+    [JSInvokable]
+    public Task<ElementReference> SetMarkerInfo(Guid buildingSiteId)
+    {
+        ElementReference markerRef = _markerNoInfoElement;
+
+        var selectedBuildingSite = Items?.FirstOrDefault(x => x.Id == buildingSiteId);
+        if (selectedBuildingSite is not null && 
+            _markerInfoComponent is not null)
+        {
+            _markerInfoComponent.SelectedItem = selectedBuildingSite;
+            markerRef = _markerInfoComponent.MarkerInfoElement;
+        }
+
+        StateHasChanged();
+        return Task.FromResult(markerRef);
+    }
+
+    [JSInvokable]
+    public async Task MarkerInfoButtonClick(Guid buildingSiteId, string action)
+    {
+        if (_markerInfoComponent is not null)
+            await _markerInfoComponent.ButtonClickAsync(buildingSiteId, action);
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await _mapModule.InvokeVoidAsync("dispose", _mapInstance);
+
+        if (_mapInstance is not null)
+           await _mapInstance.DisposeAsync();
+
+        if (_mapModule is not null)
+            await _mapModule.DisposeAsync();
+
+        _objRef?.Dispose();
+    }
+}

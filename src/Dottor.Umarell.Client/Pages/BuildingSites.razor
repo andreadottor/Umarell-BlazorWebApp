@@ -1,0 +1,17 @@
+﻿@page "/building-sites"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@inject IBuildingSitesService BuildingSitesService
+
+@attribute [Authorize]
+
+<h3>Elenco cantieri segnalati</h3>
+
+@if (items != null)
+{
+    <MapDisplay Items="items">
+        <MarkerInfo>
+            <MapMarkerInfo />
+        </MarkerInfo>
+    </MapDisplay>
+}
