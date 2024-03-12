@@ -1,22 +1,21 @@
 ﻿export async function initializeMap(container, items, callback) {
-    const { Map } = await google.maps.importLibrary("maps");
+    const { Map, InfoWindow  } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
     var markers = [];
 
-    
-
     // inizializzazione mappa
     //
     var map = new Map(container, {
-        zoom: 18,
-        center: { lat: 45.8851534, lng: 12.3373920 },
-        disableDefaultUI: false,
-        zoomControl: true,
-        mapId: "eb895995cd6a60e5"
-    });
+            zoom: 18,
+            center: { lat: 45.8851534, lng: 12.3373920 },
+            disableDefaultUI: false,
+            zoomControl: true,
+            mapId: "eb895995cd6a60e5"
+        });
 
-    const infoWindow = new google.maps.InfoWindow();
+
+    const infoWindow = new InfoWindow();
     var bounds = new google.maps.LatLngBounds();
 
     items.forEach(item => {
@@ -26,7 +25,7 @@
         const markerImg = document.createElement("img");
         markerImg.src = "/images/umarell_marker.png";
         const glyphSvgPinElement = new PinElement({
-          glyph: markerImg,
+            glyph: markerImg,
         });
 
         let marker = new AdvancedMarkerElement({
@@ -38,7 +37,7 @@
         bounds.extend(location);
         // gestione tooltip con le informazioni del cantiere
         //
-        google.maps.event.addListener(marker, "click", ((id, marker, info) => {
+        marker.addListener("click", ((id, marker, info) => {
             return () => {
                 info.close();
                 // chiamo il metodo Blazor che si occupa di valorizzare il tooltip
@@ -66,7 +65,7 @@
                         var buttons = clonedInfo.querySelectorAll("button");
                         if (buttons) {
                             buttons.forEach(button => {
-                                
+
                                 button.addEventListener("click", () => {
                                     // notifico al codice blazor il pulsante che è stato premuto
                                     //
@@ -85,9 +84,4 @@
     // https://stackoverflow.com/a/19304625/16405773
     map.fitBounds(bounds);
 
-    return map;
-}
-
-export function dispose(map) {
-    map.unbindAll();
 }

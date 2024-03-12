@@ -37,7 +37,8 @@
         {
             _objRef = DotNetObjectReference.Create(this);
             _mapModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Maps/MapDisplay.razor.js");
-            _mapInstance = await _mapModule.InvokeAsync<IJSObjectReference>("initializeMap", _mapElement, Items, _objRef);
+            await Task.Delay(1000);
+            await _mapModule.InvokeVoidAsync("initializeMap", _mapElement, Items, _objRef);
         }
     }
 
@@ -72,8 +73,6 @@
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        await _mapModule.InvokeVoidAsync("dispose", _mapInstance);
-
         if (_mapInstance is not null)
            await _mapInstance.DisposeAsync();
 
