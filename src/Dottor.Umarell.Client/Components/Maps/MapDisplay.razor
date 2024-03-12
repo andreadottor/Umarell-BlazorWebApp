@@ -37,7 +37,6 @@
         {
             _objRef = DotNetObjectReference.Create(this);
             _mapModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Maps/MapDisplay.razor.js");
-            await Task.Delay(1000);
             await _mapModule.InvokeVoidAsync("initializeMap", _mapElement, Items, _objRef);
         }
     }

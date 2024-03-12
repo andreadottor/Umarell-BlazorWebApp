@@ -2,30 +2,5 @@
     padding: 0;
     margin: 0;
     width: 100%;
-    height: calc(100vh - 250px);
-    
-}
-
-::deep .gm-control-active > img {
-    box-sizing: content-box;
-    display: none;
-    left: 50%;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%,-50%);
-}
-
-    ::deep .gm-control-active > img:nth-child(1) {
-        display: block;
-    }
-
-::deep .gm-control-active:hover > img:nth-child(1),
-::deep .gm-control-active:active > img:nth-child(1) {
-    display: none;
-}
-
-::deep .gm-control-active:hover > img:nth-child(2),
-::deep .gm-control-active:active > img:nth-child(3) {
-    display: block;
+    height: calc(100vh - 150px);
 }
