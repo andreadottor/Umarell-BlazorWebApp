@@ -4,7 +4,7 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Dottor.Umarell</a>
+        <a class="navbar-brand" href="">Umarell 2.0</a>
     </div>
 </div>
 
@@ -18,18 +18,19 @@
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="building-sites">
-                <span class="fa-solid fa-person-digging me-3" aria-hidden="true"></span> Cantieri
-            </NavLink>
-        </div>
+        <AuthorizeView>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="building-sites">
+                    <span class="fa-solid fa-person-digging me-3" aria-hidden="true"></span> Cantieri
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="create">
-                <span class="fa-solid fa-plus me-3" aria-hidden="true"></span> Segnala nuovo
-            </NavLink>
-        </div>
-
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="create">
+                    <span class="fa-solid fa-plus me-3" aria-hidden="true"></span> Segnala nuovo
+                </NavLink>
+            </div>
+        </AuthorizeView>
 @*         <div class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter

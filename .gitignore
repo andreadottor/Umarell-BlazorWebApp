@@ -399,4 +399,6 @@ FodyWeavers.xsd
 
 # custom
 umarell.db
+umarell.db-shm
+umarell.db-wal
 umarell-images/

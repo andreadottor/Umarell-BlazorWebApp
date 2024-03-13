@@ -12,7 +12,7 @@ public class BuildingSitesProxyService : IBuildingSitesService
         _httpClient = httpClient;
     }
 
-    public async ValueTask<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model)
+    public async Task<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model)
     {
         var response = await _httpClient.PostAsJsonAsync($"api/v1/BuildingSites", model);
         if (response.IsSuccessStatusCode)
@@ -25,7 +25,7 @@ public class BuildingSitesProxyService : IBuildingSitesService
         return false;
     }
 
-    public async ValueTask<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync()
+    public async Task<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync()
     {
         var response = await _httpClient.GetAsync($"api/v1/BuildingSites");
         if (response.IsSuccessStatusCode)
@@ -36,6 +36,12 @@ public class BuildingSitesProxyService : IBuildingSitesService
         }
 
         throw new Exception("Error on retrieve list of BuildingSites");
+    }
+
+
+    public Task<int> BuildingSitesCountAsync()
+    {
+        throw new NotImplementedException();
     }
 
 }

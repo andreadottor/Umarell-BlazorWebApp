@@ -23,7 +23,13 @@ public class BuildingSitesDataService : IBuildingSitesService
         _logger = logger;
     }
 
-    public async ValueTask<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync()
+    public async Task<int> BuildingSitesCountAsync()
+    {
+        await Task.Delay(1000);
+        return await _db.BuildingSites.CountAsync();
+    }
+
+    public async Task<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync()
     {
         var sites = await _db.BuildingSites.ToListAsync();
         var list = new List<BuildingSiteModel>();
@@ -42,7 +48,7 @@ public class BuildingSitesDataService : IBuildingSitesService
         return list;
     }
 
-    public async ValueTask<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model)
+    public async Task<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model)
     {
         try
         {

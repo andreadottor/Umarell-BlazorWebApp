@@ -1,23 +1,22 @@
-﻿@inject IWeatherProxyService WeatherProxy
-
-<div class="card border-primary shadow h-100 py-2" style="border-left-width: 5px;">
+﻿@inject IBuildingSitesService BuildingSitesService
+<div class="card border-success shadow h-100 py-2" style="border-left-width: 5px;">
     <div class="card-body">
         <div class="row no-gutters align-items-center">
             <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                    Temperatura
+                    Cantieri sengalati
                 </div>
-                @if (_temperature is null)
+                @if (_count is null)
                 {
                     <div class="h5 mb-0 font-weight-bold text-gray-800">loading...</div>
                 }
                 else
                 {
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">@_temperature °C</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">@_count</div>
                 }
             </div>
             <div class="col-auto">
-                <i class="fa-solid fa-temperature-half fa-2x text-gray-300"></i>
+                <i class="fa-solid fa-person-digging fa-2x text-gray-300"></i>
             </div>
         </div>
     </div>
@@ -25,10 +24,10 @@
 
 
 @code {
-    private float? _temperature;
+    private float? _count;
 
     override protected async Task OnInitializedAsync()
     {
-        _temperature = await WeatherProxy.GetCurrentTemperatureAsync(45.88, 12.33);
+        _count = await BuildingSitesService.BuildingSitesCountAsync();
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public interface IBuildingSitesService
 {
-    ValueTask<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync();
-    ValueTask<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model);
+    Task<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync();
+    Task<int> BuildingSitesCountAsync();
+    Task<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model);
 }
