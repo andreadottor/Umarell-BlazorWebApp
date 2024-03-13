@@ -30,4 +30,35 @@
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\bootstrap\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.esm.js" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\bootstrap\js\bootstrap.min.js.map" />
+  </ItemGroup>
+
 </Project>

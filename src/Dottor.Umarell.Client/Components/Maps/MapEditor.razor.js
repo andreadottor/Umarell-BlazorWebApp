@@ -1,65 +1,45 @@
 ﻿export async function initializeMap(container, callback) {
-    const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-    var marker;
-    // inizializzazione mappa
-    //
-    var map = new Map(container, {
-        zoom: 17,
-        center: { lat: 45.8851534, lng: 12.3373920 },
-        disableDefaultUI: true,
-        zoomControl: true,
-        mapId: "eb895995cd6a60e5"
-    });
+     var map = L.map(container, { attributionControl: false })
+        .setView([45.8851534, 12.3373920], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        //attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var markersGroup = L.layerGroup();
+    map.addLayer(markersGroup);
 
     // funzione di creazione/posizionamento marker
     //
-    var placeMarker = (location) => {
-        if (marker) {
-            marker.position = location;
-        } else {
-            marker = new AdvancedMarkerElement({
-                position: location,
-                map: map
-            });
-        }
-        // TODO: trovare soluzione migliore
-        //
-        map._marker = marker;
+    var placeMarker = (e) => {
+        markersGroup.clearLayers();
+
+        var location = e.latlng
+
+        L.marker(location).addTo(markersGroup);
+
         // notifico a Blazor le coordinate selezionate
         //
-        callback.invokeMethodAsync("SetMarker", location.lat(), location.lng());
+        callback.invokeMethodAsync("SetMarker", location.lat, location.lng);
     }
-    // rimango in ascolto del click sulla mappa per recuperare le coordinate
-    //
-    google.maps.event.addListener(map, 'click', (event) => {
-        placeMarker(event.latLng);
-    });
 
-    return map;
+    map.on('click', placeMarker);
+
+    return markersGroup;
 }
 
 // Clear marker from Blazor
 //
-export function clearMarker(map) {
-    var marker = map._marker;
-    if(marker)
-        marker.setMap(null);
+export function clearMarker(markersGroup) {
+    markersGroup.clearLayers();
 }
 
 // Change/set marker position from Blazor
 //
-export function setMarker(map, position) {
-    var marker = map._marker;
+export function setMarker(markersGroup, position) {
+    markersGroup.clearLayers();
     var location = { lat: position.latitude, lng: position.longitude };
-
-    if (marker) {
-        marker.position = location;
-    } else {
-        marker = new AdvancedMarkerElement({
-            position: location,
-            map: map
-        });
-    }
+    L.marker(location).addTo(markersGroup);
 }

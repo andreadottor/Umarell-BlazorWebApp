@@ -70,21 +70,18 @@ public partial class Create
 
         if (result)
         {
-            await MessageBoxService.ShowAlertAsync("OK", "Inserimento nuovo cantiere avvenuto con successo");
+            await MessageBoxService.ShowAlertAsync("Segnalazione nuovo cantiere", "Inserimento nuovo cantiere avvenuto con successo");
             Clear();
         }
         else
         {
-            await MessageBoxService.ShowAlertAsync("Error", "Errore durante l'inserimento del cantiere.");
+            await MessageBoxService.ShowAlertAsync("Segnalazione nuovo cantiere", "Errore durante l'inserimento del cantiere.");
         }
     }
 
     private void Clear()
     {
-        Image = null;
-        Title = string.Empty;
-        Position = Coordinate.Empty;
-        StartDate = DateTime.Today;
-        StateHasChanged();
+        Navigation.Refresh(forceReload: true);
     }
+
 }

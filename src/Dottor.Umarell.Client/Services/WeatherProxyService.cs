@@ -1,5 +1,6 @@
 ﻿namespace Dottor.Umarell.Client.Services;
 
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -19,7 +20,9 @@ public class WeatherProxyService : IWeatherProxyService
         await Task.Delay(3000);
         try
         {
-            var response = await _httpClient.GetAsync($"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature");
+            var culture = CultureInfo.CreateSpecificCulture("en-US");
+            var url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToString(culture)}&longitude={longitude.ToString(culture)}&current=temperature";
+            var response = await _httpClient.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<OpenMeteoResponse>(content, OpenMeteoSerializerOptions);
             return result?.Current?.Temperature;
@@ -44,7 +47,7 @@ public class WeatherProxyService : IWeatherProxyService
         public string Timezone { get; set; } = default!;
         [JsonPropertyName("timezone_abbreviation")]
         public string TimezoneAbbreviation { get; set; } = default!;
-        public int Elevation { get; set; }
+        //public int Elevation { get; set; }
         [JsonPropertyName("current_units")]
         public CurrentUnits? CurrentUnits { get; set; }
         public Current? Current { get; set; }

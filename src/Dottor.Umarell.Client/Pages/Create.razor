@@ -4,6 +4,7 @@
 @inject IJSRuntime JS
 @inject IBuildingSitesService ApiProxy
 @inject IMessageBoxService MessageBoxService
+@inject NavigationManager Navigation
 
 @attribute [Authorize]
 
@@ -38,3 +39,4 @@
     <button type="button" class="btn btn-secondary" @onclick="Clear">Clear</button>
 </EditForm>
 
+<Dottor.Umarell.Client.Components.MessageBox />

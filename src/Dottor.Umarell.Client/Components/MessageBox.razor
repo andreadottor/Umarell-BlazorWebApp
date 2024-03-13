@@ -69,7 +69,7 @@
     {
         if (firstRender)
         {
-            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Dottor.Blazor.UI/Components/MessageBox.razor.js");
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/MessageBox.razor.js");
             _modalInstance = await _module.InvokeAsync<IJSObjectReference>("init", _modalElement);
         }
     }
