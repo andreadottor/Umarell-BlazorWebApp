@@ -10,8 +10,8 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
 
-builder.Services.AddScoped<IMessageBoxService, MessageBoxService>();
+builder.Services.AddScoped<IMessageBoxService,    MessageBoxService>();
 builder.Services.AddScoped<IBuildingSitesService, BuildingSitesProxyService>();
-builder.Services.AddScoped<IWeatherProxyService, WeatherProxyService>();
+builder.Services.AddScoped<IWeatherProxyService,  WeatherProxyService>();
 
 await builder.Build().RunAsync();
