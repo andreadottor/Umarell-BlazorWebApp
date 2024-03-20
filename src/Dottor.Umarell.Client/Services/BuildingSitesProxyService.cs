@@ -14,20 +14,13 @@ public class BuildingSitesProxyService : IBuildingSitesService
 
     public async Task<bool> InsertBuildingSiteAsync(BuildingSiteInsertModel model)
     {
-        var response = await _httpClient.PostAsJsonAsync($"api/v1/BuildingSites", model);
-        if (response.IsSuccessStatusCode)
-        {
-            var data = await response.Content.ReadFromJsonAsync<ApiResult>();
-            if (data is not null)
-                return data.Result;
-        }
-
-        return false;
+        var response = await _httpClient.PostAsJsonAsync($"/api/v1/building-sites/", model);
+        return response.IsSuccessStatusCode;
     }
 
     public async Task<IEnumerable<BuildingSiteModel>> GetAllBuildingSiteAsync()
     {
-        var response = await _httpClient.GetAsync($"api/v1/BuildingSites");
+        var response = await _httpClient.GetAsync($"/api/v1/building-sites/");
         if (response.IsSuccessStatusCode)
         {
             var data = await response.Content.ReadFromJsonAsync<ApiResult<IEnumerable<BuildingSiteModel>>>();
@@ -39,9 +32,17 @@ public class BuildingSitesProxyService : IBuildingSitesService
     }
 
 
-    public Task<int> BuildingSitesCountAsync()
+    public async Task<int> BuildingSitesCountAsync()
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"/api/v1/building-sites/count");
+        if (response.IsSuccessStatusCode)
+        {
+            var data = await response.Content.ReadFromJsonAsync<ApiResult<int>>();
+            if (data is not null && data.Result)
+                return data.Data;
+        }
+
+        throw new Exception("Error on retrieve the number of BuildingSites");
     }
 
 }
