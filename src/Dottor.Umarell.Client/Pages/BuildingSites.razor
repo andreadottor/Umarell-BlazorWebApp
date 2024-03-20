@@ -1,9 +1,8 @@
 ﻿@page "/building-sites"
+@rendermode InteractiveServer
 @* @rendermode @(new InteractiveServerRenderMode(prerender: false)) *@
-@rendermode InteractiveWebAssembly
 
 @inject IBuildingSitesService BuildingSitesService
-
 @attribute [Authorize]
 
 <h3>Elenco cantieri segnalati</h3>

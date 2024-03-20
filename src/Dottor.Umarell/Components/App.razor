@@ -21,13 +21,3 @@
 
 </body>
 </html>
-
-
-@code {
-    private string? _googleMapsKey;
-
-    protected override void OnInitialized()
-    {
-        _googleMapsKey = Configuration["GoogleMaps:Key"];
-    }
-}

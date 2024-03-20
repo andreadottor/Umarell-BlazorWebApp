@@ -1,7 +1,7 @@
 ﻿export async function initializeMap(container, callback) {
 
      var map = L.map(container, { attributionControl: false })
-        .setView([45.8851534, 12.3373920], 13);
+         .setView([41.8212342, 12.4594432], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
