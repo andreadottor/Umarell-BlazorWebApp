@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Components;
 
 public interface IMarkerInfoComponent
 {
-    BuildingSiteModel? SelectedItem { get; set; }
     ElementReference MarkerInfoElement { get; }
     Task ButtonClickAsync(Guid buildingSiteId, string action);
+
+    void SetItem(BuildingSiteModel buildingSite);
 }

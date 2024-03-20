@@ -26,7 +26,8 @@
         bounds.extend(latLng);
 
         marker.on('click', function (e) {
-             callback.invokeMethodAsync("SetMarkerInfo", item.id)
+            ((id, marker) => {
+                callback.invokeMethodAsync("SetMarkerInfo", id)
                     .then(markerInfoElement => {
                         // clono l'elemento html per non modificare/alterare quello originale
                         //
@@ -42,7 +43,7 @@
                         //var buttons = clonedInfo.querySelectorAll("button");
                         //if (buttons) {
                         //    buttons.forEach(button => {
-                                
+
                         //        button.addEventListener("click", () => {
                         //            // notifico al codice blazor il pulsante che è stato premuto
                         //            //
@@ -52,6 +53,7 @@
                         //}
 
                     });
+            })(item.id, marker);
 
         });
     });

@@ -1,6 +1,7 @@
 ﻿@page "/building-sites"
-@rendermode InteractiveServer
-@* @rendermode @(new InteractiveServerRenderMode(prerender: false)) *@
+
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@* @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false)) *@
 
 @inject IBuildingSitesService BuildingSitesService
 @attribute [Authorize]

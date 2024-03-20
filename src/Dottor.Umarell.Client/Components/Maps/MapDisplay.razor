@@ -47,7 +47,7 @@
     }
 
     [JSInvokable]
-    public Task<ElementReference> SetMarkerInfo(Guid buildingSiteId)
+    public async Task<ElementReference> SetMarkerInfo(Guid buildingSiteId)
     {
         ElementReference markerRef = _markerNoInfoElement;
 
@@ -55,12 +55,14 @@
         if (selectedBuildingSite is not null && 
             _markerInfoComponent is not null)
         {
-            _markerInfoComponent.SelectedItem = selectedBuildingSite;
+            _markerInfoComponent.SetItem(selectedBuildingSite);
             markerRef = _markerInfoComponent.MarkerInfoElement;
         }
-
+        
         StateHasChanged();
-        return Task.FromResult(markerRef);
+        // HACK: wait for the DOM to be updated
+        await Task.Delay(400);
+        return markerRef;
     }
 
     [JSInvokable]

@@ -31,7 +31,7 @@
 </div>
 
 @code {
-    public BuildingSiteModel? SelectedItem { get; set; }
+    private BuildingSiteModel? SelectedItem { get; set; }
     public ElementReference MarkerInfoElement { get; private set; }
 
     [CascadingParameter]
@@ -43,6 +43,12 @@
             throw new WrongParentException(typeof(MapMarkerInfo), typeof(IMarkerInfoContainer));
 
         MapContainer.SetMarkerInfoRef(this);
+    }
+
+    public void SetItem(BuildingSiteModel buildingSite)
+    {
+        SelectedItem = buildingSite;
+        StateHasChanged();
     }
 
     public Task ButtonClickAsync(Guid buildingSiteId, string action)
