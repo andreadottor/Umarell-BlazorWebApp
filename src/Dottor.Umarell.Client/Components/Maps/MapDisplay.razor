@@ -52,13 +52,13 @@
         ElementReference markerRef = _markerNoInfoElement;
 
         var selectedBuildingSite = Items?.FirstOrDefault(x => x.Id == buildingSiteId);
-        if (selectedBuildingSite is not null && 
+        if (selectedBuildingSite is not null &&
             _markerInfoComponent is not null)
         {
             _markerInfoComponent.SetItem(selectedBuildingSite);
             markerRef = _markerInfoComponent.MarkerInfoElement;
         }
-        
+
         StateHasChanged();
         // HACK: wait for the DOM to be updated
         await Task.Delay(400);
@@ -74,12 +74,17 @@
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        if (_mapInstance is not null)
-           await _mapInstance.DisposeAsync();
+        try
+        {
+            if (_mapInstance is not null)
+                await _mapInstance.DisposeAsync();
 
-        if (_mapModule is not null)
-            await _mapModule.DisposeAsync();
+            if (_mapModule is not null)
+                await _mapModule.DisposeAsync();
 
-        _objRef?.Dispose();
+            _objRef?.Dispose();
+        }
+        catch (JSDisconnectedException) { }
+
     }
 }
