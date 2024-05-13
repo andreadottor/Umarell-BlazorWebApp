@@ -8,6 +8,8 @@ using Dottor.Umarell.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SmartComponents.Inference.OpenAI;
+using SmartComponents.LocalEmbeddings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +47,9 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMessageBoxService, MessageBoxService>();
 builder.Services.AddScoped<IBuildingSitesService, BuildingSitesDataService>();
 builder.Services.AddScoped<IWeatherProxyService, WeatherProxyService>();
+
+builder.Services.AddSmartComponents()
+                .WithInferenceBackend<OpenAIInferenceBackend>();
 
 var app = builder.Build();
 await EnsureDb(app.Services, app.Logger);

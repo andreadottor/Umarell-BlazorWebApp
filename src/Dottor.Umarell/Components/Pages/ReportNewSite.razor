@@ -1,0 +1,74 @@
+﻿@page "/report-new-site"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@using SmartComponents
+@using SmartComponents.AspNetCore.Components
+
+<h3>Report new site</h3>
+
+<form>
+
+    <h5>Dati segnalante</h5>
+    <div class="form-group">
+        <label for="txtName">Nome:</label>
+        <InputText @bind-Value="@Name" class="form-control" id="txtName" />
+    </div>
+
+    <hr />
+    <h5>Informazioni del cantiere</h5>
+
+    <div class="form-group">
+        <label for="txtAddress">Indirizzo:</label>
+        <InputText @bind-Value="@Address" class="form-control" id="txtAddress" />
+    </div>
+    <div class="form-group">
+        <label for="txtCity">Citt&agrave;:</label>
+        <InputText @bind-Value="@City" class="form-control" id="txtCity" />
+    </div>
+    <div class="form-group">
+        <label for="txtZip">CAP:</label>
+        <InputText @bind-Value="@Zip" class="form-control" id="txtZip" />
+    </div>
+    <div class="form-group">
+        <label for="txtBuildingSiteDescription">Descrizione cantiere:</label>
+        <InputTextArea @bind-Value="@BuildingSiteDescription" 
+                       class="form-control" 
+                       id="txtBuildingSiteDescription" />
+    </div>
+
+    <div class="pt-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <SmartPasteButton DefaultIcon class="btn btn-warning" />
+    </div>
+ 
+</form>
+
+<hr />
+
+<h5>Sample text</h5>
+
+<pre>
+Buongiorno, 
+sono Andrea Dottor e volevo segnalare che in 
+Viale A. De Gasperi 40
+31020 San Vendemiano
+stanno posando le nuove fognature e rifacendo il manto stradale.
+
+Complimenti per il portale che avete realizzato.
+Umarell è sempre una certezza!
+saluti
+--
+Andrea
+</pre>
+
+
+@code {
+
+
+    public string? Name { get; set; }
+    public string? Address { get; set; }
+    public string? City { get; set; }
+    public string? Zip { get; set; }
+    public string? BuildingSiteDescription { get; set; }
+
+}
