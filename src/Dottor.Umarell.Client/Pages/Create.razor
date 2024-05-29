@@ -1,12 +1,12 @@
 ﻿@page "/create"
 @rendermode InteractiveServer
 
+@attribute [Authorize]
+
 @inject IJSRuntime JS
 @inject IBuildingSitesService ApiProxy
 @inject IMessageBoxService MessageBoxService
 @inject NavigationManager Navigation
-
-@attribute [Authorize]
 
 <h3>Segnala un nuovo cantiere</h3>
 

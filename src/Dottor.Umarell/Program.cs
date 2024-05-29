@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartComponents.Inference.OpenAI;
-using SmartComponents.LocalEmbeddings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,7 +81,6 @@ app.MapAdditionalIdentityEndpoints();
 app.MapBuildingSitesEndpoints();
 
 app.Run();
-
 
 async Task EnsureDb(IServiceProvider services, ILogger logger)
 {
