@@ -1,7 +1,7 @@
 ﻿export async function initializeMap(container, items, callback) {
 
     var map = L.map(container, { attributionControl: false })
-        .setView([41.8212342, 12.4594432], 13);
+        .setView([43.8593017, 7.8427837], 13);
 
     var bounds = L.latLngBounds()
 
